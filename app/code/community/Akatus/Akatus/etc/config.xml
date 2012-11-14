@@ -3,7 +3,7 @@
     <modules>
        <Akatus_Akatus>
 <!-- declare module's version information for database updates -->
-          <version>0.1.0</version>
+          <version>0.1.1</version>
        </Akatus_Akatus>
     </modules>
  
@@ -118,6 +118,16 @@
          </payment>
     </default>
 	
-	
+	<frontend>
+        <routers>
+            <akatus>
+                <use>standard</use>
+                <args>
+                    <module>Akatus_Akatus</module>
+                    <frontName>akatus</frontName>
+                </args>
+            </akatus>
+        </routers>
+    </frontend>
 	
 </config>
