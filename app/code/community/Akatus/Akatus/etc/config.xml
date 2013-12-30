@@ -2,8 +2,7 @@
 <config>
     <modules>
        <Akatus_Akatus>
-<!-- declare module's version information for database updates -->
-          <version>0.1.1</version>
+          <version>2.5.2</version>
        </Akatus_Akatus>
     </modules>
  
@@ -48,14 +47,31 @@
     		 	</check_formapagamento>
     		 </sales_convert_quote_payment>
     	</fieldsets>
+        <cache>
+            <types>
+                <akatus_akatus module="akatus_akatus">
+                    <label>Akatus</label>
+                    <description>Cache de formas de pagamento e parcelas</description>
+                    <tags>akatus</tags>
+                </akatus_akatus>
+            </types>
+        </cache>
+        <sales>
+            <order>
+                <states>
+                    <pending_payment>
+                        <visible_on_front>1</visible_on_front>
+                    </pending_payment>
+                </states>
+            </order>
+        </sales>
 
+        <blocks>
+            <akatus>
+                <class>Akatus_Akatus_Block</class>            
+            </akatus>
+        </blocks>
 
-
-    <blocks>
-        <akatus>
-            <class>Akatus_Akatus_Block</class>
-        </akatus>
-    </blocks>
  
 <!-- declare model group for new module -->
         <models>
@@ -93,6 +109,11 @@
               </connection>
             </akatus_read>
         </resources>
+        
+        <helpers>
+            <class>Akatus_Akatus_Helper</class>
+        </helpers>        
+        
     </global>
  
  
@@ -105,6 +126,8 @@
             <akatus>
 				<!-- by default this payment method is inactive -->
                 <active>1</active>
+                <modo>SANDBOX</modo>
+                <numero_maximo_parcelas>12</numero_maximo_parcelas>
 				<!-- model to handle logic for this payment method -->
                 <model>akatus/pagar</model>
 				<!-- order status for new orders paid by this payment method -->
@@ -118,16 +141,16 @@
          </payment>
     </default>
 	
-	<frontend>
+    <admin>
         <routers>
             <akatus>
-                <use>standard</use>
+                <use>admin</use>
                 <args>
                     <module>Akatus_Akatus</module>
                     <frontName>akatus</frontName>
                 </args>
             </akatus>
         </routers>
-    </frontend>
+    </admin>
 	
 </config>
